@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:image" content="images/share-image.png" />
+    <meta property="og:title" content="XRPL Hooks" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="XRPL Hooks" />
+    <meta name="twitter:site" content="@xrpllabs" />
+    <meta name="twitter:image" content="images/share-image.png" />
+
+    <meta
+      name="description"
+      content="Start building with a Smart Contract proposal for the XRP Ledger"
+    />
+    <meta
+      property="og:description"
+      content="Start building with a Smart Contract proposal for the XRP Ledger"
+    />
+    <meta
+      name="twitter:description"
+      content="Start building with a Smart Contract proposal for the XRP Ledger"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/favicons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/favicons/safari-pinned-tab.svg"
+      color="#b146d8"
+    />
+    <link rel="shortcut icon" href="/favicons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#100220" />
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
+    <meta name="theme-color" content="#180926" />
+
+    <title>XRPL Hooks — A Smart Contract proposal for the XRP Ledger</title>
+    <style>
+      @font-face {
+        font-family: "Work Sans";
+        font-style: normal;
+        font-weight: 400;
+        src: local(""),
+          url("fonts/work-sans-v17-latin-regular.woff2") format("woff2"),
+          /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url("fonts/work-sans-v17-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+      @font-face {
+        font-family: "Work Sans";
+        font-style: normal;
+        font-weight: 600;
+        src: local(""),
+          url("fonts/work-sans-v17-latin-600.woff2") format("woff2"),
+          /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url("fonts/work-sans-v17-latin-600.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 100%;
+        background: rgb(22, 22, 24);
+        background: linear-gradient(
+          354deg,
+          rgba(22, 22, 24, 1) 0%,
+          rgba(24, 8, 38, 1) 100%
+        );
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+        font-family: "Work Sans", sans-serif;
+        color: #ededef;
+        letter-spacing: -0.03rem;
+      }
+
+      /* Basic element setup */
+      h1,
+      h2 {
+        font-weight: normal;
+        line-height: 1.1;
+        letter-spacing: -0.06rem;
+        margin: 1rem 0 1rem;
+      }
+      h1 {
+        font-size: 2.3rem;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      h3 {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 1rem;
+      }
+      p {
+        line-height: 1.42;
+        margin-bottom: 1.5rem;
+      }
+      p,
+      h1,
+      h2 {
+        max-width: 52rem;
+      }
+      a {
+        color: #ededef;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 1.5rem;
+        color: #63c174;
+      }
+      li {
+        margin: 0.25rem 0;
+      }
+      li:before {
+        content: "✅  ";
+      }
+
+      /* Sections and articles */
+
+      section {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      article {
+        background: rgb(38, 17, 56);
+        border-radius: 6px;
+        margin: 1rem;
+        background: linear-gradient(
+          49deg,
+          rgba(38, 17, 56, 1) 0%,
+          rgba(40, 33, 46, 1) 100%
+        );
+        padding: 1rem 1.5rem;
+      }
+      article.darker {
+        background: rgb(0, 0, 0);
+        background: linear-gradient(
+          236deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(14, 4, 22, 1) 100%
+        );
+      }
+
+      /* Buttons */
+      .filled-button,
+      .outlined-button {
+        display: inline-block;
+        padding: 0.75rem 1.4rem 0.85rem;
+        margin-right: 0.5rem;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: box-shadow 0.3s ease-in-out;
+      }
+      .filled-button:hover,
+      .outlined-button:hover {
+        box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+      }
+      .outlined-button {
+        border: 1px solid #fff;
+      }
+      .filled-button {
+        background: #9d2dff;
+        border: 1px solid #9d2dff;
+      }
+
+      /* Builder section */
+      .builder--description {
+        margin-bottom: 2rem;
+      }
+      .builder--image {
+        position: relative;
+      }
+      .builder--image img {
+        width: 100%;
+        margin-bottom: -2.2rem;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 1rem;
+        margin: 3rem 0 -2rem 0;
+      }
+      .footer--description {
+        max-width: 480px;
+      }
+      .footer--links p {
+        display: block;
+        color: #c37eff;
+        padding: 0.25rem 0;
+        margin: 0;
+      }
+      .footer--links a {
+        color: #c37eff;
+      }
+
+      /* Animation setup */
+      .anim-1,
+      .anim-2,
+      .anim-3,
+      .anim-4 {
+        opacity: 0;
+        animation: fadeIn 1.2s ease-in-out;
+        animation-fill-mode: forwards;
+      }
+
+      .anim-2 {
+        animation-delay: 0.25s;
+      }
+      .anim-3 {
+        animation-delay: 0.5s;
+      }
+      .anim-4 {
+        animation-delay: 0.75s;
+      }
+
+      /* Sligthly increase elements when reaching a bigger viewport */
+      @media only screen and (min-width: 800px) {
+        article {
+          padding: 2rem 2.1rem;
+        }
+      }
+
+      /* Make layout stack */
+      @media only screen and (min-width: 1000px) {
+        body {
+          padding-top: 1.5rem;
+        }
+        .intro--container,
+        .builder--container,
+        .footer--container {
+          display: flex;
+          justify-content: space-between;
+        }
+        .builder--description {
+          width: 40%;
+        }
+        .builder--image {
+          width: 55%;
+          display: flex;
+          align-items: flex-end;
+        }
+        .intro--container article {
+          width: 49%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <article class="anim-1">
+        <header>
+          <img src="images/hooks-logo.svg" alt="Hooks logo" />
+          <h1>A Smart Contract proposal for the XRP Ledger</h1>
+        </header>
+        <p>
+          Hooks are small, efficient pieces of code being defined on an XRPL
+          account, allowing logic to be executed before and/or after XRPL
+          transactions.
+        </p>
+        <a
+          class="filled-button"
+          href="https://xrpl-hooks.readme.io/"
+          target="_blank"
+          rel="noreferrer noopener"
+          >Open Docs</a
+        >
+        <a
+          class="outlined-button"
+          href="https://github.com/XRPL-Labs/xrpld-hooks"
+          target="_blank"
+          rel="noreferrer noopener"
+          >View on Github</a
+        >
+      </article>
+    </section>
+    <section>
+      <article class="darker builder--container anim-3">
+        <div class="builder--description">
+          <header>
+            <img src="images/hooks-builder-logo.svg" alt="Hooks Builder logo" />
+            <h2>Develop, test and deploy your Hooks on your browser.</h2>
+          </header>
+          <p>
+            With Hooks Builder you can develop, test, debug and deploy your own
+            Hooks on testnet, using our examples or building your own from
+            scratch.
+          </p>
+          <ul>
+            <li>No installs, WebAssembly based</li>
+            <li>Built-in code hinting & docs</li>
+            <li>Save & share via Gist</li>
+            <li>Test, debug & deploy in-browser</li>
+          </ul>
+          <a
+            class="filled-button"
+            href="https://xrpl-hooks-ide.vercel.app/"
+            target="_blank"
+            rel="noreferrer noopener"
+            >Open Builder</a
+          >
+        </div>
+        <div class="builder--image">
+          <img
+            src="images/hooks-builder.png"
+            alt="Preview of the Hooks Editor"
+          />
+        </div>
+      </article>
+    </section>
+    <footer class="anim-4">
+      <section class="footer--container">
+        <div class="footer--description">
+          <img src="images/hooks-logo-white.svg" alt="Hooks logo" />
+          <p>
+            XRPL Hooks is a project developed by XRPL Labs. You can contact us
+            and follow the current status of the project via our Twitter
+            <a
+              href="https://twitter.com/xrpllabs"
+              target="_blank"
+              rel="noreferrer noopener"
+              >@XRPLLabs</a
+            >
+          </p>
+        </div>
+        <div class="footer--links">
+          <h3>Helpful links</h3>
+          <p>
+            🔑 &nbsp;
+            <a
+              href="https://xrpl.org/xrp-testnet-faucet.html"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              XRPL Testnet credentials & faucet</a
+            >
+          </p>
+          <p>
+            🔍 &nbsp;
+            <a
+              href="https://hooks-testnet-v2-explorer.xrpl-labs.com/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Hooks Testnet Explorer</a
+            >
+          </p>
+        </div>
+      </section>
+    </footer>
+  </body>
+</html>
